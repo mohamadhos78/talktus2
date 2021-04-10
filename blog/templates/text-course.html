@@ -1,0 +1,80 @@
+        {% extends 'base.html'%}
+        {% block main%}
+      	<header  class="text-center">
+
+                <div id="banner" class="container">
+
+                      <div class="row justify-content-center align-items-center" style="height: 100vh;">
+
+                            <div class="col">
+
+                                  <h2 id="banner-heading" class="text-black-100 mt-6 my-6 font-weight-bold">
+                                  	شروع آموزش
+                                  </h2>
+
+                                  <h5 id="banner-par" class="text-black-100 mx-auto mt-4 mb-5 ">
+                                     از حسن انتخاب شما سپاسگزاریم.
+                                  </h5>
+                            </div>
+                      </div>
+                </div>
+        </header>
+ 	    <section  style="height:100%;">
+            <div class="container-fluid">
+              <div dir="ltr" class="row">
+                <div  class="col-md-3 Styles my-5 mx-3 bg-filter" style="order: 2">
+                  <!--جلسات-->
+                  <div class="row mt-1">
+                    <div class="col">
+                      <div  class="col text-center mb-1 p-2 Purple ">
+                        <a id="bg-color" href="{% url 'posts' post.category.title %}" > جلسات</a>
+                      </div>
+                    </div>
+                  </div>
+                  {% for object in posts %}  
+                    <div class="row mt-3 mb-1 mx-2">
+                      <div  class="col text-center mb-1 p-2 Purple ">
+                        <a id="bg-color" href="{% url 'post' object.title %}" >{{ object.title }}</a>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+
+                <!--end-->
+
+                <!-- دوره-->
+                  <div class="col-md-8 main pb-2 mt-5" style="order: 1" >
+                    <div class="row main1 mt-3 pt-2 pb-2 mx-2 text-center justify-content-around mr-auto">
+                        <div class="col card ">
+                          <div class="card-header text-white">
+                              <h4>{{post.category.title}}</h4>
+                               <h5>{{post.description}}</h5>
+                          </div>
+                          {% if post.Urlimage %}  
+                           <div class="card-body">
+                              <img class="img" src={{ post.Urlimage }} alt="image">
+                            </div>
+                          {% elif post.Urlvideo %}
+                            <div class="card-body">
+                              <video controls  class="video">
+                                <source src={{ post.Urlvideo }} type="video/mp4">
+                              </video>
+                            </div>
+                          {% elif post.category.image %}  
+                           <div class="card-body">
+                              <img class="img" src={{ post.category.image.url }} alt="image">
+                            </div> 
+                          {% endif %}
+                          <div class="card-footer text-white">
+                             <h5>{{post.title}} </h5>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="row description my-3 mx-0 col text-white text-justify" height:100%>
+                        {{post.content|safe}} 
+                      </div>
+                    </div>
+              <!--end-->
+           </div>
+      	</section>
+        {% endblock %}
